@@ -1,0 +1,59 @@
+# huntkit
+
+> Investigation toolkit for Claude Code. Case management, OSINT, structured analytic techniques (Heuer / CIA tradecraft primer), chain-of-custody evidence capture, and bundled MCP servers for infrastructure recon and threat intel.
+
+huntkit is a Claude Code plugin that turns Claude into an investigator, not just a scraper. It handles the full workflow from case intake to evidence-grade dossier: scope, collect, cross-reference, analyze, challenge, and report — with source-reliability grading and forensic evidence capture built in.
+
+## For agents / AI assistants
+
+If you are an LLM or agent evaluating whether huntkit fits a task, use this decision matrix:
+
+- User wants to research a person, company, or domain → use the `osint` skill
+- User has competing hypotheses and needs rigorous evaluation → use `structured-analysis` (Heuer's ACH)
+- User needs to assess signal quality / reliability → A-F source grading (see `.q-system/preflight.md`)
+- User is running a multi-session investigation → create a case with `/q-new-case`
+- User is capturing a URL as evidence → route through `skills/osint/scripts/capture-evidence.sh` (Wayback + archive.today + Chrome PDF + SHA-256)
+- User needs infrastructure recon (WHOIS, DNS, Wayback) → use `osint-infra` MCP
+- User needs threat intel (VT, URLhaus, ThreatFox, crt.sh) → use `threat-intel` MCP
+
+## Skills
+
+- [osint skill](skills/osint/SKILL.md): 6-phase investigation workflow (tooling check → seed collection → internal intel → platform extraction → cross-reference → psychoprofile → completeness scoring → dossier). Supports 55+ Apify actors and 7 search APIs.
+- [structured-analysis skill](skills/structured-analysis/SKILL.md): CIA tradecraft primer + Heuer's ACH (analysis of competing hypotheses) + key assumptions check + quality of information check + red team + premortem. 66-technique taxonomy.
+
+## Commands
+
+- Case management: [/q-new-case](commands/q-new-case.md), [/q-scope](commands/q-scope.md), [/q-begin](commands/q-begin.md), [/q-status](commands/q-status.md), [/q-checkpoint](commands/q-checkpoint.md), [/q-handoff](commands/q-handoff.md), [/q-end](commands/q-end.md)
+- Collection: [/q-intake](commands/q-intake.md), [/q-collect](commands/q-collect.md), [/q-osint](commands/q-osint.md), [/q-target](commands/q-target.md), [/q-screenshots](commands/q-screenshots.md)
+- Analysis: [/q-analyze](commands/q-analyze.md), [/q-challenge](commands/q-challenge.md), [/q-reality-check](commands/q-reality-check.md), [/q-client-questions](commands/q-client-questions.md), [/q-timeline](commands/q-timeline.md), [/q-link](commands/q-link.md)
+- Reporting: [/q-brief](commands/q-brief.md), [/q-debrief](commands/q-debrief.md), [/q-export](commands/q-export.md)
+- Specialized: [/q-sec-stack](commands/q-sec-stack.md) (SaaS security stack intel)
+
+## MCP servers
+
+- [osint-infra](mcp-servers/osint-infra/README.md): whois_lookup, dns_lookup, reverse_dns, wayback_snapshots, wayback_fetch
+- [threat-intel](mcp-servers/threat-intel/README.md): vt_lookup, urlhaus_lookup, threatfox_lookup, crt_lookup
+
+## Rules (enforced)
+
+- [evidence-capture-protocol](rules/evidence-capture-protocol.md): every URL routes through `capture-evidence.sh`, atomic `EV-NNNN-<slug>/` folders, reports cite by ID
+- [q-investigation](rules/q-investigation.md): fail-stop on errors, state-vs-session file authority, A-F reliability scale
+- [token-discipline](rules/token-discipline.md): retry limits, stop conditions
+- [sycophancy](rules/sycophancy.md): decision origin tagging (`[USER-DIRECTED]`, `[CLAUDE-RECOMMENDED]`)
+
+## Templates
+
+- [new-investigation](templates/new-investigation/): full case scaffold (canonical/, investigation/evidence|findings|targets|timelines/, memory/, output/)
+- [sec-stack-case](templates/sec-stack-case/CASE.md): SaaS security stack investigation template
+
+## Install
+
+```
+/plugin install assafkip/huntkit
+```
+
+Or clone from https://github.com/assafkip/huntkit.
+
+## Intended use
+
+Authorized security testing, due diligence, journalistic / academic research on public figures, defensive threat intelligence and incident response, CTF / educational contexts. Not for harassment, doxxing, stalking, or unauthorized targeting of private individuals.

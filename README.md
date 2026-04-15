@@ -1,8 +1,15 @@
 # huntkit
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-orange)](https://claude.com/claude-code)
+[![GitHub stars](https://img.shields.io/github/stars/assafkip/huntkit?style=social)](https://github.com/assafkip/huntkit)
+[![Topics](https://img.shields.io/badge/topics-osint%20%7C%20threat--intel%20%7C%20investigation-brightgreen)](https://github.com/topics/osint)
+
 Investigation toolkit for [Claude Code](https://claude.com/claude-code). Case management, OSINT, structured analytic techniques, chain-of-custody evidence capture, and bundled MCP servers for infrastructure recon and threat intel.
 
 Not just a scraper wrapper. A full investigation workflow — from case intake to evidence-grade dossier.
+
+**Use it for:** OSINT, due diligence, threat intelligence, incident response, digital forensics, journalistic research, competitive intel, security research, CTF challenges.
 
 ## What you get
 
@@ -134,6 +141,10 @@ Do not use on private individuals without consent, for harassment, doxxing, or s
 ## Contributing
 
 Issues and PRs welcome. Backward-compatible additions preferred.
+
+## For LLM agents
+
+See [`llms.txt`](llms.txt) for a machine-readable capability summary with a decision matrix for when to use each skill, command, and MCP server.
 
 ## License
 
